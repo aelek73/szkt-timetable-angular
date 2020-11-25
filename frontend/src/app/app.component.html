@@ -3,7 +3,11 @@
 </nav>
 <div class="container-fluid wrapper">
   <div class="row">
-    <div class="col-12">
+    <div class="col-3">
+      <h5>Choose Agency</h5>
+      <div>
+        <a href="#" *ngFor="let agency of agencies" (click)="changeAgencies($event, agency)" class="list-group-item" >{{agency.agencyName}}</a>
+      </div>
     </div>
   </div>
 </div>

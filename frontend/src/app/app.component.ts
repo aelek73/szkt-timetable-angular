@@ -7,12 +7,18 @@ import { OnInit } from '@angular/core';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent implements OnInit {
-  private agencies: Agencies[] = [];
+  public agencies: Agencies[] = [];
+  public selectedAgency: Agencies;
 
   constructor(private GTFS: GTFSAPIService) {}
 
   async ngOnInit() {
     this.agencies = await this.GTFS.getAgencies();
     console.log(this.agencies);
+  }
+
+  changeAgencies(event, agency) {
+    this.selectedAgency = agency;
+    console.log(agency.agencyId);
   }
 }
