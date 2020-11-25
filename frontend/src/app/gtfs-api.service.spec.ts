@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GtfsApiService } from './gtfs-api.service';
+import { GTFSAPIService } from './gtfs-api.service';
 
 describe('GtfsApiService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: GtfsApiService = TestBed.get(GtfsApiService);
+    const service: GTFSAPIService = TestBed.get(GTFSAPIService);
     expect(service).toBeTruthy();
   });
 });
