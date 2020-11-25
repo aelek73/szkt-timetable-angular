@@ -51,6 +51,18 @@ export class AppComponent implements OnInit {
     this.getStops(trip.tripId);
   }
 
+  removeDuplicates(input) {
+    let tempObject = {};
+    for ( let i = 0, len = input.length; i < len; i++ ) {
+      tempObject[input[i]['name']] = input[i];
+    }
+    input = new Array();
+    for (let key in tempObject) {
+      input.push(tempObject[key]);
+    }
+    return input;
+  }
+
   private async getStops(tripId: string) {
     this.stops = await this.GTFS.getStopsByTripId(tripId);
     console.log(this.stops);

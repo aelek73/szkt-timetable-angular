@@ -18,7 +18,9 @@
     <div class="col-3">
       <h4>Trips</h4>
       <div>
-        <a href="#" *ngFor="let trip of trips" (click)="changeTrip($event, trip)" class="list-group-item" >{{trip.tripId}}</a>
+        <div *ngFor="let trip of removeDuplicates(trips)">
+          <a href="#" (click)="changeTrip($event, trip)" class="list-group-item">{{trip.name}}</a>
+        </div>
       </div>
     </div>
     <div class="col-3">
