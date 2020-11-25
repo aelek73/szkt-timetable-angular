@@ -13,6 +13,18 @@ export interface Agencies {
   agencyPhone: string;
   agencyLang: string;
 }
+
+export interface Routes {
+  routeId: string;
+  agencyId: string;
+  routeShortName: string;
+  routeLongName: string;
+  routeDesc: string;
+  routeType: string;
+  routeUrl: string;
+  routeColor: string;
+  routeTextColor: string;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -21,5 +33,9 @@ export class GTFSAPIService {
 
   public getAgencies(): Promise<Agencies[]> {
     return this.http.get<Agencies[]>(`${GTFS_API_END}/agencies`).toPromise();
+  }
+
+  public getRoutesByAgencyId(agencyId: string): Promise<Routes[]> {
+    return this.http.get<Routes[]>(`${GTFS_API_END}/routes?agencyId=${agencyId}`).toPromise();
   }
 }

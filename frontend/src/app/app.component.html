@@ -9,5 +9,11 @@
         <a href="#" *ngFor="let agency of agencies" (click)="changeAgencies($event, agency)" class="list-group-item" >{{agency.agencyName}}</a>
       </div>
     </div>
+    <div class="col-3">
+      <h5>Vehicle number</h5>
+      <div>
+        <a href="#" *ngFor="let route of routes" (click)="changeRoute($event, route)" class="list-group-item">{{route.routeShortName}}</a>
+      </div>
+    </div>
   </div>
 </div>
