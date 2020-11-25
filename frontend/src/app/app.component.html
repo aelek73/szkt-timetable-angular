@@ -15,5 +15,11 @@
         <a href="#" *ngFor="let route of routes" (click)="changeRoute($event, route)" class="list-group-item">{{route.routeShortName}}</a>
       </div>
     </div>
+    <div class="col-3">
+      <h4>Trips</h4>
+      <div>
+        <a href="#" *ngFor="let trip of trips" (click)="changeTrip($event, trip)" class="list-group-item" >{{trip.tripId}}</a>
+      </div>
+    </div>
   </div>
 </div>

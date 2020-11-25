@@ -1,4 +1,4 @@
-import { GTFSAPIService, Agencies, Routes } from './gtfs-api.service';
+import { GTFSAPIService, Agencies, Routes, Trips } from './gtfs-api.service';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 @Component({
@@ -11,6 +11,8 @@ export class AppComponent implements OnInit {
   public selectedAgency: Agencies;
   public routes: Routes[] = [];
   public selectedRoute: Routes;
+  public trips: Trips[] = [];
+  public selectedTrip: Trips;
 
   constructor(private GTFS: GTFSAPIService) {}
 
@@ -33,5 +35,16 @@ export class AppComponent implements OnInit {
   changeRoute(event, route) {
     this.selectedRoute = route;
     console.log(this.selectedRoute);
+    this.getTrips(route.routeId);
+  }
+
+  private async getTrips(routeId: string) {
+    this.trips = await this.GTFS.getTripsByRouteId(routeId);
+    console.log(this.trips);
+  }
+
+  changeTrip(event, trip) {
+    this.selectedTrip = trip;
+    console.log(this.selectedTrip);
   }
 }
