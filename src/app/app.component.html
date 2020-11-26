@@ -3,19 +3,19 @@
 </nav>
 <div class="container-fluid wrapper">
   <div class="row">
-    <div class="col-3">
+    <div class="col-sm-12 col-md-6 col-lg-3">
       <h5>Choose Agency</h5>
       <div>
         <a href="#" *ngFor="let agency of agencies" (click)="changeAgencies($event, agency)" class="list-group-item" >{{agency.agencyName}}</a>
       </div>
     </div>
-    <div class="col-3">
+    <div class="col-sm-12 col-md-6 col-lg-3">
       <h5>Vehicle number</h5>
       <div>
         <a href="#" *ngFor="let route of routes" (click)="changeRoute($event, route)" class="list-group-item">{{route.routeShortName}}</a>
       </div>
     </div>
-    <div class="col-3">
+    <div class="col-sm-12 col-md-6 col-lg-3">
       <h4>Trips</h4>
       <div>
         <div *ngFor="let trip of removeDuplicates(trips)">
@@ -23,7 +23,7 @@
         </div>
       </div>
     </div>
-    <div class="col-3">
+    <div class="col-sm-12 col-md-6 col-lg-3">
       <h4>Stops</h4>
       <div>
         <a href="#" *ngFor="let stop of stops" (click)="changeStop($event, stop)" class="list-group-item">{{stop.stopName}}</a>
