@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpClientModule} from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 
-const GTFS_API_END = '/api/v1';
+const GTFS_API_END = 'https://szkt-timetable-backend.herokuapp.com/api/v1';
 
 export interface Agencies {
   agencyId: string;
