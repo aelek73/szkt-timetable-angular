@@ -50,6 +50,20 @@ export interface Stops {
   stopLat: string;
   stopLon: string;
 }
+
+export interface Times {
+  tripId: string;
+  arrivalTime: string;
+  departureTime: string;
+  stopId: string;
+  stopSequence: number;
+  pickuptype: string;
+  dropOffType: string;
+  shapeDistTraveled: string;
+  stopName: string;
+  stopLat: string;
+  stopLon: string;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -70,5 +84,9 @@ export class GTFSAPIService {
 
   public getStopsByTripId(tripId: string): Promise<Stops[]> {
     return this.http.get<Stops[]>(`${GTFS_API_END}/stops?tripId=${tripId}`).toPromise();
+  }
+
+  public getTimesByTripIdAndStopName(tripId: string, stopName: string): Promise<Times[]> {
+    return this.http.get<Times[]>(`${GTFS_API_END}/times?tripId=${tripId}&stopName=${stopName}`).toPromise();
   }
 }

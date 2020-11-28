@@ -34,5 +34,11 @@
         <a href="#" *ngFor="let stop of stops" (click)="changeStop($event, stop)" class="list-group-item">{{stop.stopName}}</a>
       </div>
     </div>
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <h4>Times</h4>
+      <div>
+        <a href="#" *ngFor="let time of times" class="list-group-item">{{time.arrivalTime}}</a>
+      </div>
+    </div>
   </div>
 </div>
