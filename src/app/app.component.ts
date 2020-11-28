@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
   public routes: Routes[] = [];
   public selectedRoute: Routes;
   public trips: Trips[] = [];
-  public selectedTrip: Trips;
+  public selectedTripId = '';
   public stops: Stops[];
   public selectedStops: Stops;
   public times: Times[] = [];
@@ -24,10 +24,9 @@ export class AppComponent implements OnInit {
     console.log(this.agencies);
   }
 
-  changeAgencies(event, agency) {
-    this.selectedAgency = agency;
-    console.log(agency.agencyId);
-    this.getRoutes(agency.agencyId);
+  changeAgencies(event) {
+    const agencyId = event.target.value;
+    this.getRoutes(agencyId);
   }
 
   private async getRoutes(agencyId: string) {
@@ -35,10 +34,9 @@ export class AppComponent implements OnInit {
     console.log(this.routes);
   }
 
-  changeRoute(event, route) {
-    this.selectedRoute = route;
-    console.log(this.selectedRoute);
-    this.getTrips(route.routeId);
+  changeRoute(event) {
+    const routeId = event.target.value;
+    this.getTrips(routeId);
   }
 
   private async getTrips(routeId: string) {
@@ -46,10 +44,10 @@ export class AppComponent implements OnInit {
     console.log(this.trips);
   }
 
-  changeTrip(event, trip) {
-    this.selectedTrip = trip;
-    console.log(this.selectedTrip);
-    this.getStops(trip.tripId);
+  changeTrip(event) {
+    const tripId = event.target.value;
+    this.selectedTripId = tripId;
+    this.getStops(tripId);
   }
 
   removeDuplicates(input) {
@@ -69,10 +67,10 @@ export class AppComponent implements OnInit {
     console.log(this.stops);
   }
 
-  changeStop(event, stop) {
-    this.selectedStops = stop;
-    console.log(this.selectedStops);
-    this.getTimes(stop.tripId, stop.stopName);
+  changeStop(event) {
+    const stopName = event.target.value;
+    this.getTimes(this.selectedTripId, stopName);
+    console.log(this.selectedTripId);
   }
 
   private async getTimes(tripId: string, stopName: string) {

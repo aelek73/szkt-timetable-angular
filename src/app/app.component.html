@@ -6,7 +6,10 @@
     <div class="col-sm-12 col-md-6 col-lg-3">
       <h5>Choose Agency</h5>
       <div>
-        <a href="#" *ngFor="let agency of agencies" (click)="changeAgencies($event, agency)" class="list-group-item" >{{agency.agencyName}}</a>
+        <select class="custom-select" (change)="changeAgencies($event)">
+          <option value="" selected hidden>Choose agency</option>
+          <option *ngFor="let agency of agencies" [value]="agency.agencyId">{{agency.agencyName}}</option>
+        </select>
       </div>
       <div *ngIf="selectedAgency">
         <h6>Agency information</h6>
@@ -17,21 +20,34 @@
     <div class="col-sm-12 col-md-6 col-lg-3">
       <h5>Vehicle number</h5>
       <div>
-        <a href="#" *ngFor="let route of routes" (click)="changeRoute($event, route)" class="list-group-item">{{route.routeShortName}}</a>
+        <select class="custom-select" (change)="changeRoute($event)">
+          <option value="" selected hidden>Choose vehicle number</option>
+          <option *ngFor="let route of routes" [value]="route.routeId">{{route.routeShortName}}</option>
+        </select>
       </div>
     </div>
     <div class="col-sm-12 col-md-6 col-lg-3">
       <h4>Trips</h4>
       <div>
-        <div *ngFor="let trip of removeDuplicates(trips)">
+        <!--div *ngFor="let trip of removeDuplicates(trips)">
           <a href="#" (click)="changeTrip($event, trip)" class="list-group-item">{{trip.name}}</a>
-        </div>
+        </!--div-->
+
+        <select class="custom-select" (change)="changeTrip($event)">
+          <option value="" selected hidden>Choose direction</option>
+          <option *ngFor="let trip of removeDuplicates(trips)" [value]="trip.tripId">{{trip.name}}</option>
+        </select>
       </div>
     </div>
     <div class="col-sm-12 col-md-6 col-lg-3">
       <h4>Stops</h4>
       <div>
-        <a href="#" *ngFor="let stop of stops" (click)="changeStop($event, stop)" class="list-group-item">{{stop.stopName}}</a>
+        <!--a href="#" *ngFor="let stop of stops" (click)="changeStop($event, stop)" class="list-group-item">{{stop.stopName}}</-a-->
+
+        <select class="custom-select" (change)="changeStop($event)">
+          <option value="" selected hidden>Choose stop</option>
+          <option *ngFor="let stop of stops" [value]="stop.stopName">{{stop.stopName}}</option>
+        </select>
       </div>
     </div>
     <div class="col-sm-12 col-md-6 col-lg-3">
