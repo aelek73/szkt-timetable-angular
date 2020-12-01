@@ -4,13 +4,13 @@ Application for viewing GTFS timetable of Szeged Transport Company. The frontend
 
 ## Features
 * PWA support
-* Docker-compose with [backend](https://github.com/akoselek2703/szkt-timetable-backend) (available soon)
+* Docker with [backend](https://github.com/akoselek273/szkt-timetable-backend) (available soon)
 * [Available in cloud](https://szkt-timetable-webapp.netlify.app/)
 ## Usage
 
 1. Clone repository
   ```shell
-  git clone https://github.com/akoselek2703/szkt-timetable-webapp
+  git clone https://github.com/akoselek273/szkt-timetable-webapp
   ```
 2. Install packages
   ```shell
