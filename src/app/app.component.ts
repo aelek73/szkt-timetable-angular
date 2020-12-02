@@ -59,7 +59,8 @@ export class AppComponent implements OnInit {
     for (let i = 0; i < this.trips.length; i++) {
       if (this.trips[i]['tripId'] == tripIdIn) {
         let tripObj = this.trips[i];
-        let result = Object.values(tripObj)[5];
+        let result = tripObj['directionId'];
+        console.log('result: ', result);
         return result;
       }
     }
