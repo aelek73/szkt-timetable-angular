@@ -93,5 +93,8 @@ export class AppComponent implements OnInit {
     console.log('routeId: ', routeId, 'directionId: ', directionId, 'stopName: ', stopName);
     this.times = await this.GTFS.getTimes(routeId, directionId, stopName);
     console.log('Times: ', this.times);
+    if (directionId != "0" && directionId != "1") {
+      window.alert("This query successfully failed or maybe show wrong data");
+    }
   }
 }
