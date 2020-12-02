@@ -16,12 +16,15 @@ export class AppComponent implements OnInit {
   public stops: Stops[];
   public selectedStops: Stops;
   public times: Times[] = [];
+  public selectedDirectionId = '';
+  public selectedStopName = '';
+  public selectedRouteId: '';
 
   constructor(private GTFS: GTFSAPIService) {}
 
   async ngOnInit() {
     this.agencies = await this.GTFS.getAgencies();
-    console.log(this.agencies);
+    // console.log(this.agencies);
   }
 
   changeAgencies(event) {
@@ -31,23 +34,35 @@ export class AppComponent implements OnInit {
 
   private async getRoutes(agencyId: string) {
     this.routes = await this.GTFS.getRoutesByAgencyId(agencyId);
-    console.log(this.routes);
+    // console.log(this.routes);
   }
 
   changeRoute(event) {
     const routeId = event.target.value;
+    this.selectedRouteId = routeId;
     this.getTrips(routeId);
   }
 
   private async getTrips(routeId: string) {
     this.trips = await this.GTFS.getTripsByRouteId(routeId);
-    console.log(this.trips);
+    // console.log(this.trips);
   }
 
   changeTrip(event) {
     const tripId = event.target.value;
-    this.selectedTripId = tripId;
+    this.selectedDirectionId = this.getDirectionbyTripId(tripId);
     this.getStops(tripId);
+    //console.log(this.selectedTripId);
+  }
+
+  getDirectionbyTripId(tripIdIn: string): string {
+    for (let i = 0; i < this.trips.length; i++) {
+      if (this.trips[i]['tripId'] == tripIdIn) {
+        let tripObj = this.trips[i];
+        let result = Object.values(tripObj)[5];
+        return result;
+      }
+    }
   }
 
   removeDuplicates(input) {
@@ -64,17 +79,18 @@ export class AppComponent implements OnInit {
 
   private async getStops(tripId: string) {
     this.stops = await this.GTFS.getStopsByTripId(tripId);
-    console.log(this.stops);
+    // console.log('dirction: ', this.stops);
   }
 
   changeStop(event) {
-    const stopName = event.target.value;
-    this.getTimes(this.selectedTripId, stopName);
-    console.log(this.selectedTripId);
+    const stop = event.target.value;
+    console.log('selectedroute:', this.selectedRouteId);
+    this.getTimes(this.selectedRouteId, this.selectedDirectionId, stop);
   }
 
-  private async getTimes(tripId: string, stopName: string) {
-    this.times = await this.GTFS.getTimesByTripIdAndStopName(tripId, stopName);
+  private async getTimes(routeId: string, directionId: string, stopName: string) {
+    console.log('routeId: ', routeId, 'directionId: ', directionId, 'stopName: ', stopName);
+    this.times = await this.GTFS.getTimes(routeId, directionId, stopName);
     console.log('Times: ', this.times);
   }
 }

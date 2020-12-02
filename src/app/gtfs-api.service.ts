@@ -86,7 +86,7 @@ export class GTFSAPIService {
     return this.http.get<Stops[]>(`${GTFS_API_END}/stops?tripId=${tripId}`).toPromise();
   }
 
-  public getTimesByTripIdAndStopName(tripId: string, stopName: string): Promise<Times[]> {
-    return this.http.get<Times[]>(`${GTFS_API_END}/times?tripId=${tripId}&stopName=${stopName}`).toPromise();
+  public getTimes(routeId: string, directionId: string, stopName: string): Promise<Times[]> {
+    return this.http.get<Times[]>(`${GTFS_API_END}/times?routeId=${routeId}&directionId=${directionId}&stopName=${stopName}`).toPromise();
   }
 }
