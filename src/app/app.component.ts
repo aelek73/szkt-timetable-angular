@@ -36,15 +36,12 @@ export class AppComponent implements OnInit {
   }
 
   async ngOnInit() {
-
-    // console.log(this.agencies);
     this.createOnline$().subscribe(isOnline => console.log(isOnline));
     if (this.onlineOffline) {
       this.agencies = await this.GTFS.getAgencies();
-      localStorage.setItem("agencies", JSON.stringify(this.agencies));
-    }
-    else {
-      this.agencies = JSON.parse(localStorage.getItem("agencies"));
+      localStorage.setItem('agencies', JSON.stringify(this.agencies));
+    } else {
+      this.agencies = JSON.parse(localStorage.getItem('agencies'));
     }
   }
 
@@ -56,12 +53,10 @@ export class AppComponent implements OnInit {
   private async getRoutes(agencyId: string) {
     if (this.onlineOffline) {
       this.routes = await this.GTFS.getRoutesByAgencyId(agencyId);
-      localStorage.setItem("routes", JSON.stringify(this.routes));
+      localStorage.setItem('routes', JSON.stringify(this.routes));
+    } else {
+      this.routes = JSON.parse(localStorage.getItem('routes'));
     }
-    else {
-      this.routes = JSON.parse(localStorage.getItem("routes"));
-    }
-    // console.log(this.routes);
   }
 
   changeRoute(event) {
@@ -73,26 +68,24 @@ export class AppComponent implements OnInit {
   private async getTrips(routeId: string) {
     if (this.onlineOffline) {
       this.trips = await this.GTFS.getTripsByRouteId(routeId);
-      localStorage.setItem("trips", JSON.stringify(this.trips));
+      localStorage.setItem('trips', JSON.stringify(this.trips));
+    } else {
+      this.trips = JSON.parse(localStorage.getItem('trips'));
     }
-    else {
-      this.trips = JSON.parse(localStorage.getItem("trips"));
-    }
-    // console.log(this.trips);
   }
 
   changeTrip(event) {
     const tripId = event.target.value;
     this.selectedDirectionId = this.getDirectionbyTripId(tripId);
     this.getStops(tripId);
-    //console.log(this.selectedTripId);
   }
 
   getDirectionbyTripId(tripIdIn: string): string {
+    // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < this.trips.length; i++) {
-      if (this.trips[i]['tripId'] == tripIdIn) {
-        let tripObj = this.trips[i];
-        let result = tripObj['directionId'];
+      if (this.trips[i].tripId === tripIdIn) {
+        const tripObj = this.trips[i];
+        const result = tripObj.directionId;
         console.log('result: ', result);
         return result;
       }
@@ -100,12 +93,13 @@ export class AppComponent implements OnInit {
   }
 
   removeDuplicates(input) {
-    let tempObject = {};
+    const tempObject = {};
     for ( let i = 0, len = input.length; i < len; i++ ) {
-      tempObject[input[i]['name']] = input[i];
+      tempObject[input[i].name] = input[i];
     }
     input = new Array();
-    for (let key in tempObject) {
+    // tslint:disable-next-line: forin
+    for (const key in tempObject) {
       input.push(tempObject[key]);
     }
     return input;
@@ -114,14 +108,10 @@ export class AppComponent implements OnInit {
   private async getStops(tripId: string) {
     if (this.onlineOffline) {
       this.stops = await this.GTFS.getStopsByTripId(tripId);
-      localStorage.setItem("stops", JSON.stringify(this.stops));
+      localStorage.setItem('stops', JSON.stringify(this.stops));
+    } else {
+      this.stops = JSON.parse(localStorage.getItem('stops'));
     }
-    else {
-      this.stops = JSON.parse(localStorage.getItem("stops"));
-    }
-
-
-    // console.log('dirction: ', this.stops);
   }
 
   changeStop(event) {
@@ -134,14 +124,13 @@ export class AppComponent implements OnInit {
     console.log('routeId: ', routeId, 'directionId: ', directionId, 'stopName: ', stopName);
     if (this.onlineOffline) {
       this.times = await this.GTFS.getTimes(routeId, directionId, stopName);
-      localStorage.setItem("times", JSON.stringify("this.times"));
-    }
-    else {
-      this.times = JSON.parse(localStorage.getItem("times"));
+      localStorage.setItem('times', JSON.stringify(this.times));
+    } else {
+      this.times = JSON.parse(localStorage.getItem('times'));
     }
     console.log('Times: ', this.times);
-    if (directionId != "0" && directionId != "1") {
-      window.alert("This query successfully failed or maybe show wrong data");
+    if (directionId !== '0' && directionId !== '1') {
+      window.alert('This query successfully failed or maybe show wrong data');
     }
   }
 }
