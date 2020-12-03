@@ -1,6 +1,8 @@
 import { GTFSAPIService, Agencies, Routes, Trips, Stops, Times } from './gtfs-api.service';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { Observable, Observer, fromEvent, merge } from 'rxjs';
+import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -19,12 +21,31 @@ export class AppComponent implements OnInit {
   public selectedDirectionId = '';
   public selectedStopName = '';
   public selectedRouteId: '';
+  public onlineOffline: boolean = navigator.onLine;
 
   constructor(private GTFS: GTFSAPIService) {}
 
+  createOnline$() {
+    return merge<boolean>(
+      fromEvent(window, 'offline').pipe(map(() => false)),
+      fromEvent(window, 'online').pipe(map(() => true)),
+      new Observable((sub: Observer<boolean>) => {
+        sub.next(navigator.onLine);
+        sub.complete();
+      }));
+  }
+
   async ngOnInit() {
-    this.agencies = await this.GTFS.getAgencies();
+
     // console.log(this.agencies);
+    this.createOnline$().subscribe(isOnline => console.log(isOnline));
+    if (this.onlineOffline) {
+      this.agencies = await this.GTFS.getAgencies();
+      localStorage.setItem("agencies", JSON.stringify(this.agencies));
+    }
+    else {
+      this.agencies = JSON.parse(localStorage.getItem("agencies"));
+    }
   }
 
   changeAgencies(event) {
@@ -33,7 +54,13 @@ export class AppComponent implements OnInit {
   }
 
   private async getRoutes(agencyId: string) {
-    this.routes = await this.GTFS.getRoutesByAgencyId(agencyId);
+    if (this.onlineOffline) {
+      this.routes = await this.GTFS.getRoutesByAgencyId(agencyId);
+      localStorage.setItem("routes", JSON.stringify(this.routes));
+    }
+    else {
+      this.routes = JSON.parse(localStorage.getItem("routes"));
+    }
     // console.log(this.routes);
   }
 
@@ -44,7 +71,13 @@ export class AppComponent implements OnInit {
   }
 
   private async getTrips(routeId: string) {
-    this.trips = await this.GTFS.getTripsByRouteId(routeId);
+    if (this.onlineOffline) {
+      this.trips = await this.GTFS.getTripsByRouteId(routeId);
+      localStorage.setItem("trips", JSON.stringify(this.trips));
+    }
+    else {
+      this.trips = JSON.parse(localStorage.getItem("trips"));
+    }
     // console.log(this.trips);
   }
 
@@ -79,7 +112,15 @@ export class AppComponent implements OnInit {
   }
 
   private async getStops(tripId: string) {
-    this.stops = await this.GTFS.getStopsByTripId(tripId);
+    if (this.onlineOffline) {
+      this.stops = await this.GTFS.getStopsByTripId(tripId);
+      localStorage.setItem("stops", JSON.stringify(this.stops));
+    }
+    else {
+      this.stops = JSON.parse(localStorage.getItem("stops"));
+    }
+
+
     // console.log('dirction: ', this.stops);
   }
 
@@ -91,7 +132,13 @@ export class AppComponent implements OnInit {
 
   private async getTimes(routeId: string, directionId: string, stopName: string) {
     console.log('routeId: ', routeId, 'directionId: ', directionId, 'stopName: ', stopName);
-    this.times = await this.GTFS.getTimes(routeId, directionId, stopName);
+    if (this.onlineOffline) {
+      this.times = await this.GTFS.getTimes(routeId, directionId, stopName);
+      localStorage.setItem("times", JSON.stringify("this.times"));
+    }
+    else {
+      this.times = JSON.parse(localStorage.getItem("times"));
+    }
     console.log('Times: ', this.times);
     if (directionId != "0" && directionId != "1") {
       window.alert("This query successfully failed or maybe show wrong data");
