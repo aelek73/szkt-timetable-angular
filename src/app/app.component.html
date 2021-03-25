@@ -34,7 +34,7 @@
       <div>
         <select class="custom-select" (change)="changeTrip($event)">
           <option value="" selected hidden>Choose direction</option>
-          <option *ngFor="let trip of removeDuplicates(trips)" [value]="trip.trip_id">{{trip.trip_headsign}}</option>
+          <option *ngFor="let trip of trips" [value]="trip.trip_id">{{trip.trip_headsign}}</option>
         </select>
       </div>
     </div>

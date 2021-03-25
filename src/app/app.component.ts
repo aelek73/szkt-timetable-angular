@@ -93,19 +93,6 @@ export class AppComponent implements OnInit {
     }
   }
 
-  removeDuplicates(input) {
-    const tempObject = {};
-    for ( let i = 0, len = input.length; i < len; i++ ) {
-      tempObject[input[i].name] = input[i];
-    }
-    input = new Array();
-    // tslint:disable-next-line: forin
-    for (const key in tempObject) {
-      input.push(tempObject[key]);
-    }
-    return input;
-  }
-
   private async getStops(trip_id: string) {
     if (this.onlineOffline) {
       this.stops = await this.GTFS.getStopsByTripId(trip_id);
