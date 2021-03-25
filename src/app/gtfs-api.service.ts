@@ -60,22 +60,22 @@ export class GTFSAPIService {
   constructor(private http: HttpClient) {}
 
   public getAgencies(): Promise<Agencies[]> {
-    return this.http.get<Agencies[]>(`${GTFS_API_END}/agencies`).toPromise();
+    return this.http.get<Agencies[]>(`${GTFS_API_END}/agency`).toPromise();
   }
 
-  public getRoutesByAgencyId(agencyId: string): Promise<Routes[]> {
-    return this.http.get<Routes[]>(`${GTFS_API_END}/routes?agencyId=${agencyId}`).toPromise();
+  public getRoutesByAgencyId(agency_id: string): Promise<Routes[]> {
+    return this.http.get<Routes[]>(`${GTFS_API_END}/routes/agency_id/${agency_id}`).toPromise();
   }
 
-  public getTripsByRouteId(routeId: string): Promise<Trips[]> {
-    return this.http.get<Trips[]>(`${GTFS_API_END}/trips?routeId=${routeId}`).toPromise();
+  public getTripsByRouteId(route_id: string): Promise<Trips[]> {
+    return this.http.get<Trips[]>(`${GTFS_API_END}/trips/route_id/${route_id}`).toPromise();
   }
 
-  public getStopsByTripId(tripId: string): Promise<Stops[]> {
-    return this.http.get<Stops[]>(`${GTFS_API_END}/stops?tripId=${tripId}`).toPromise();
+  public getStopsByTripId(trip_id: string): Promise<Stops[]> {
+    return this.http.get<Stops[]>(`${GTFS_API_END}/stop_times/trip_id/${trip_id}`).toPromise();
   }
 
-  public getTimes(routeId: string, directionId: string, stopName: string): Promise<Times[]> {
-    return this.http.get<Times[]>(`${GTFS_API_END}/times?routeId=${routeId}&directionId=${directionId}&stopName=${stopName}`).toPromise();
+  public getTimes(route_id: string, direction_id: string, stop_id: string): Promise<Times[]> {
+    return this.http.get<Times[]>(`${GTFS_API_END}/times/route_id=${route_id}&directionId=${direction_id}&stop_id=${stop_id}`).toPromise();
   }
 }
