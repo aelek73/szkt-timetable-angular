@@ -6,63 +6,52 @@ import { HttpHeaders } from '@angular/common/http';
 const GTFS_API_END = 'http://ec2-18-220-143-99.us-east-2.compute.amazonaws.com/api/v1';
 
 export interface Agencies {
-  agencyId: string;
-  agencyName: string;
-  agencyUrl: string;
-  agencyTimezone: string;
-  agencyPhone: string;
-  agencyLang: string;
+  agency_id: string;
+  agency_lang: string;
+  agency_name: string;
+  agency_phone: string;
+  agency_timezone: string;
+  agency_url: string;
 }
 
 export interface Routes {
-  routeId: string;
-  agencyId: string;
-  routeShortName: string;
-  routeLongName: string;
-  routeDesc: string;
-  routeType: string;
-  routeUrl: string;
-  routeColor: string;
-  routeTextColor: string;
+  agency_id: string;
+  route_color: string;
+  route_desc: string;
+  route_id: string;
+  route_long_name: string;
+  route_short_name: string;
+  route_text_color: string;
+  route_type: string;
+  route_url: string;
 }
 
 export interface Trips {
-  routeId: string;
-  serviceId: string;
-  tripId: string;
-  tripHeadsign: string;
-  directionId: string;
-  shapeId: string;
-  wheelchairAccessible: string;
-  name: string;
+  direction_id: string;
+  route_id: string;
+  service_id: string;
+  shape_id: string;
+  trip_headsign: string;
+  trip_id: string;
+  wheelchair_accessible: string;
 }
 
 export interface Stops {
-  tripId: string;
-  arrivalTime: string;
-  departureTime: string;
-  stopId: string;
-  stopSequence: number;
-  pickuptype: string;
-  dropOffType: string;
-  shapeDistTraveled: string;
-  stopName: string;
-  stopLat: string;
-  stopLon: string;
+  stop_id: string;
+  stop_lat: string;
+  stop_lon: string;
+  stop_name: string;
 }
 
 export interface Times {
-  tripId: string;
-  arrivalTime: string;
-  departureTime: string;
-  stopId: string;
-  stopSequence: number;
-  pickuptype: string;
-  dropOffType: string;
-  shapeDistTraveled: string;
-  stopName: string;
-  stopLat: string;
-  stopLon: string;
+  arrival_time: string;
+  departure_time: string;
+  drop_off_type: string;
+  pickup_type: string;
+  shape_dist_traveled: string;
+  stop_id: string;
+  stop_sequence: string;
+  trip_id: string;
 }
 @Injectable({
   providedIn: 'root'
