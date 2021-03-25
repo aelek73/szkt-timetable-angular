@@ -1,4 +1,4 @@
-import { GTFSAPIService, Agencies, Routes, Trips, Stops, Times } from './../gtfs-api.service';
+import { GTFSAPIService, Agencies, Routes, Trips, Stops, Times } from '../gtfs/gtfs-api.service';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Observable, Observer, fromEvent, merge } from 'rxjs';
