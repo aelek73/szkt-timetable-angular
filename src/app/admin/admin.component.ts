@@ -12,4 +12,8 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
   }
 
+  clearLocalStorage() {
+    localStorage.clear();
+  }
+
 }
