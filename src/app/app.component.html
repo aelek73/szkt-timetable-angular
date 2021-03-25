@@ -11,13 +11,13 @@
       <div>
         <select class="custom-select" (change)="changeAgencies($event)">
           <option value="" selected hidden>Choose agency</option>
-          <option *ngFor="let agency of agencies" [value]="agency.agencyId">{{agency.agencyName}}</option>
+          <option *ngFor="let agency of agencies" [value]="agency.agency_id">{{agency.agency_name}}</option>
         </select>
       </div>
       <div *ngIf="selectedAgency">
         <h6>Agency information</h6>
-        <p href="#" >{{selectedAgency.agencyName}}</p>
-        <p href="#" >{{selectedAgency.agencyPhone}}</p>
+        <p href="#" >{{selectedAgency.agency_name}}</p>
+        <p href="#" >{{selectedAgency.agency_phone}}</p>
       </div>
     </div>
     <div class="col-sm-12 col-md-6 col-lg-3 mt-4 ">
@@ -25,7 +25,7 @@
       <div>
         <select class="custom-select" (change)="changeRoute($event)">
           <option value="" selected hidden>Choose vehicle number</option>
-          <option *ngFor="let route of routes" [value]="route.routeId">{{route.routeShortName}}</option>
+          <option *ngFor="let route of routes" [value]="route.route_id">{{route.route_short_name}}</option>
         </select>
       </div>
     </div>
@@ -34,7 +34,7 @@
       <div>
         <select class="custom-select" (change)="changeTrip($event)">
           <option value="" selected hidden>Choose direction</option>
-          <option *ngFor="let trip of removeDuplicates(trips)" [value]="trip.tripId">{{trip.name}}</option>
+          <option *ngFor="let trip of trips" [value]="trip.trip_id">{{trip.trip_headsign}}</option>
         </select>
       </div>
     </div>
@@ -43,14 +43,14 @@
       <div>
         <select class="custom-select" (change)="changeStop($event)">
           <option value="" selected hidden>Choose stop</option>
-          <option *ngFor="let stop of stops" [value]="stop.stopName">{{stop.stopName}}</option>
+          <option *ngFor="let stop of stops" [value]="stop.stop_id">{{stop.stop_name}}</option>
         </select>
       </div>
     </div>
     <div class="col-sm-12 col-md-6 col-lg-3 mt-4 ">
       <h4>Times</h4>
       <div>
-        <a href="#" *ngFor="let time of times" class="list-group-item">{{time.arrivalTime}}</a>
+        <a href="#" *ngFor="let time of times" class="list-group-item">{{time.arrival_time}}</a>
       </div>
     </div>
   </div>

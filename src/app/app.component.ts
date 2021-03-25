@@ -46,13 +46,13 @@ export class AppComponent implements OnInit {
   }
 
   changeAgencies(event) {
-    const agencyId = event.target.value;
-    this.getRoutes(agencyId);
+    const agency_id = event.target.value;
+    this.getRoutes(agency_id);
   }
 
-  private async getRoutes(agencyId: string) {
+  private async getRoutes(agency_id: string) {
     if (this.onlineOffline) {
-      this.routes = await this.GTFS.getRoutesByAgencyId(agencyId);
+      this.routes = await this.GTFS.getRoutesByAgencyId(agency_id);
       localStorage.setItem('routes', JSON.stringify(this.routes));
     } else {
       this.routes = JSON.parse(localStorage.getItem('routes'));
@@ -60,14 +60,15 @@ export class AppComponent implements OnInit {
   }
 
   changeRoute(event) {
-    const routeId = event.target.value;
-    this.selectedRouteId = routeId;
-    this.getTrips(routeId);
+    const route_id = event.target.value;
+    this.selectedRouteId = route_id;
+    this.getTrips(route_id);
   }
 
-  private async getTrips(routeId: string) {
+  private async getTrips(route_id: string) {
     if (this.onlineOffline) {
-      this.trips = await this.GTFS.getTripsByRouteId(routeId);
+      this.trips = await this.GTFS.getTripsByRouteId(route_id);
+      console.log(this.trips);
       localStorage.setItem('trips', JSON.stringify(this.trips));
     } else {
       this.trips = JSON.parse(localStorage.getItem('trips'));
@@ -75,39 +76,26 @@ export class AppComponent implements OnInit {
   }
 
   changeTrip(event) {
-    const tripId = event.target.value;
-    this.selectedDirectionId = this.getDirectionbyTripId(tripId);
-    this.getStops(tripId);
+    const trip_id = event.target.value;
+    this.selectedDirectionId = this.getDirectionbyTripId(trip_id);
+    this.getStops(trip_id);
   }
 
   getDirectionbyTripId(tripIdIn: string): string {
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < this.trips.length; i++) {
-      if (this.trips[i].tripId === tripIdIn) {
+      if (this.trips[i].trip_id === tripIdIn) {
         const tripObj = this.trips[i];
-        const result = tripObj.directionId;
+        const result = tripObj.direction_id;
         console.log('result: ', result);
         return result;
       }
     }
   }
 
-  removeDuplicates(input) {
-    const tempObject = {};
-    for ( let i = 0, len = input.length; i < len; i++ ) {
-      tempObject[input[i].name] = input[i];
-    }
-    input = new Array();
-    // tslint:disable-next-line: forin
-    for (const key in tempObject) {
-      input.push(tempObject[key]);
-    }
-    return input;
-  }
-
-  private async getStops(tripId: string) {
+  private async getStops(trip_id: string) {
     if (this.onlineOffline) {
-      this.stops = await this.GTFS.getStopsByTripId(tripId);
+      this.stops = await this.GTFS.getStopsByTripId(trip_id);
       localStorage.setItem('stops', JSON.stringify(this.stops));
     } else {
       this.stops = JSON.parse(localStorage.getItem('stops'));
@@ -120,16 +108,16 @@ export class AppComponent implements OnInit {
     this.getTimes(this.selectedRouteId, this.selectedDirectionId, stop);
   }
 
-  private async getTimes(routeId: string, directionId: string, stopName: string) {
-    console.log('routeId: ', routeId, 'directionId: ', directionId, 'stopName: ', stopName);
+  private async getTimes(route_id: string, direction_id: string, stop_id: string) {
+    console.log('routeId: ', route_id, 'directionId: ', direction_id, 'stopName: ', stop_id);
     if (this.onlineOffline) {
-      this.times = await this.GTFS.getTimes(routeId, directionId, stopName);
+      this.times = await this.GTFS.getTimes(route_id, direction_id, stop_id);
       localStorage.setItem('times', JSON.stringify(this.times));
     } else {
       this.times = JSON.parse(localStorage.getItem('times'));
     }
     console.log('Times: ', this.times);
-    if (directionId !== '0' && directionId !== '1') {
+    if (direction_id !== '0' && direction_id !== '1') {
       window.alert('This query successfully failed or maybe show wrong data');
     }
   }

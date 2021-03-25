@@ -3,66 +3,55 @@ import { HttpClient } from '@angular/common/http';
 import { HttpClientModule} from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 
-const GTFS_API_END = 'https://szkt-timetable-backend.herokuapp.com/api/v1';
+const GTFS_API_END = 'http://ec2-18-220-143-99.us-east-2.compute.amazonaws.com/api/v1';
 
 export interface Agencies {
-  agencyId: string;
-  agencyName: string;
-  agencyUrl: string;
-  agencyTimezone: string;
-  agencyPhone: string;
-  agencyLang: string;
+  agency_id: string;
+  agency_lang: string;
+  agency_name: string;
+  agency_phone: string;
+  agency_timezone: string;
+  agency_url: string;
 }
 
 export interface Routes {
-  routeId: string;
-  agencyId: string;
-  routeShortName: string;
-  routeLongName: string;
-  routeDesc: string;
-  routeType: string;
-  routeUrl: string;
-  routeColor: string;
-  routeTextColor: string;
+  agency_id: string;
+  route_color: string;
+  route_desc: string;
+  route_id: string;
+  route_long_name: string;
+  route_short_name: string;
+  route_text_color: string;
+  route_type: string;
+  route_url: string;
 }
 
 export interface Trips {
-  routeId: string;
-  serviceId: string;
-  tripId: string;
-  tripHeadsign: string;
-  directionId: string;
-  shapeId: string;
-  wheelchairAccessible: string;
-  name: string;
+  direction_id: string;
+  route_id: string;
+  service_id: string;
+  shape_id: string;
+  trip_headsign: string;
+  trip_id: string;
+  wheelchair_accessible: string;
 }
 
 export interface Stops {
-  tripId: string;
-  arrivalTime: string;
-  departureTime: string;
-  stopId: string;
-  stopSequence: number;
-  pickuptype: string;
-  dropOffType: string;
-  shapeDistTraveled: string;
-  stopName: string;
-  stopLat: string;
-  stopLon: string;
+  stop_id: string;
+  stop_lat: string;
+  stop_lon: string;
+  stop_name: string;
 }
 
 export interface Times {
-  tripId: string;
-  arrivalTime: string;
-  departureTime: string;
-  stopId: string;
-  stopSequence: number;
-  pickuptype: string;
-  dropOffType: string;
-  shapeDistTraveled: string;
-  stopName: string;
-  stopLat: string;
-  stopLon: string;
+  arrival_time: string;
+  departure_time: string;
+  drop_off_type: string;
+  pickup_type: string;
+  shape_dist_traveled: string;
+  stop_id: string;
+  stop_sequence: string;
+  trip_id: string;
 }
 @Injectable({
   providedIn: 'root'
@@ -71,22 +60,22 @@ export class GTFSAPIService {
   constructor(private http: HttpClient) {}
 
   public getAgencies(): Promise<Agencies[]> {
-    return this.http.get<Agencies[]>(`${GTFS_API_END}/agencies`).toPromise();
+    return this.http.get<Agencies[]>(`${GTFS_API_END}/agency`).toPromise();
   }
 
-  public getRoutesByAgencyId(agencyId: string): Promise<Routes[]> {
-    return this.http.get<Routes[]>(`${GTFS_API_END}/routes?agencyId=${agencyId}`).toPromise();
+  public getRoutesByAgencyId(agency_id: string): Promise<Routes[]> {
+    return this.http.get<Routes[]>(`${GTFS_API_END}/routes/agency_id/${agency_id}`).toPromise();
   }
 
-  public getTripsByRouteId(routeId: string): Promise<Trips[]> {
-    return this.http.get<Trips[]>(`${GTFS_API_END}/trips?routeId=${routeId}`).toPromise();
+  public getTripsByRouteId(route_id: string): Promise<Trips[]> {
+    return this.http.get<Trips[]>(`${GTFS_API_END}/trips/route_id/${route_id}`).toPromise();
   }
 
-  public getStopsByTripId(tripId: string): Promise<Stops[]> {
-    return this.http.get<Stops[]>(`${GTFS_API_END}/stops?tripId=${tripId}`).toPromise();
+  public getStopsByTripId(trip_id: string): Promise<Stops[]> {
+    return this.http.get<Stops[]>(`${GTFS_API_END}/stop_times/trip_id/${trip_id}`).toPromise();
   }
 
-  public getTimes(routeId: string, directionId: string, stopName: string): Promise<Times[]> {
-    return this.http.get<Times[]>(`${GTFS_API_END}/times?routeId=${routeId}&directionId=${directionId}&stopName=${stopName}`).toPromise();
+  public getTimes(route_id: string, direction_id: string, stop_id: string): Promise<Times[]> {
+    return this.http.get<Times[]>(`${GTFS_API_END}/times/route_id=${route_id}&directionId=${direction_id}&stop_id=${stop_id}`).toPromise();
   }
 }
