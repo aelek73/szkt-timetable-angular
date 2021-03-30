@@ -2,12 +2,14 @@
   <div class="row">
     <div class="col-sm-12 col-md-6 col-lg-3 mt-4 ">
       <h4>Choose Agency</h4>
-      <div>
-        <select class="custom-select" (change)="changeAgencies($event)">
-          <option value="" selected hidden>Choose agency</option>
-          <option *ngFor="let agency of agencies" [value]="agency.agency_id">{{agency.agency_name}}</option>
-        </select>
-      </div>
+        <form>
+          <mat-form-field appearance="fill">
+            <mat-label>Choose agency</mat-label>
+            <mat-select (selectionChange)="changeAgencies($event)">
+              <mat-option *ngFor="let agency of agencies" [value]="agency.agency_id">{{agency.agency_name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
       <div *ngIf="selectedAgency">
         <h6>Agency information</h6>
         <p href="#" >{{selectedAgency.agency_name}}</p>
@@ -16,36 +18,56 @@
     </div>
     <div class="col-sm-12 col-md-6 col-lg-3 mt-4 ">
       <h4>Vehicle number</h4>
-      <div>
-        <select class="custom-select" (change)="changeRoute($event)">
-          <option value="" selected hidden>Choose vehicle number</option>
-          <option *ngFor="let route of routes" [value]="route.route_id">{{route.route_short_name}}</option>
-        </select>
-      </div>
+        <form>
+          <mat-form-field appearance="fill">
+            <mat-label>Choose vehicle number</mat-label>
+            <mat-select (selectionChange)="changeRoute($event)">
+              <mat-option *ngFor="let route of routes" [value]="route.route_id">{{route.route_short_name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
     </div>
     <div class="col-sm-12 col-md-6 col-lg-3 mt-4 ">
       <h4>Trips</h4>
-      <div>
-        <select class="custom-select" (change)="changeTrip($event)">
-          <option value="" selected hidden>Choose direction</option>
-          <option *ngFor="let trip of trips" [value]="trip.trip_id">{{trip.trip_headsign}}</option>
-        </select>
-      </div>
+        <form>
+          <mat-form-field appearance="fill">
+            <mat-label>Choose Trip</mat-label>
+            <mat-select (selectionChange)="changeTrip($event)">
+              <mat-option *ngFor="let trip of trips" [value]="trip.trip_id">{{trip.trip_headsign}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
     </div>
     <div class="col-sm-12 col-md-6 col-lg-3 mt-4 ">
       <h4>Stops</h4>
-      <div>
-        <select class="custom-select" (change)="changeStop($event)">
-          <option value="" selected hidden>Choose stop</option>
-          <option *ngFor="let stop of stops" [value]="stop.stop_id">{{stop.stop_name}}</option>
-        </select>
-      </div>
+        <form>
+          <mat-form-field appearance="fill">
+            <mat-label>Choose Stops</mat-label>
+            <mat-select (selectionChange)="changeStop($event)">
+              <mat-option *ngFor="let stop of stops" [value]="stop.stop_id">{{stop.stop_name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
     </div>
     <div class="col-sm-12 col-md-6 col-lg-3 mt-4 ">
       <h4>Times</h4>
-      <div>
+      <!--div>
         <a href="#" *ngFor="let time of times" class="list-group-item">{{time.arrival_time}}</a>
-      </div>
+      </div-->
+      <mat-nav-list>
+        <a mat-list-item *ngFor="let time of times"> {{time.arrival_time}} </a>
+     </mat-nav-list>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-3 mt-4 ">
+      <h4>Feedback</h4>
+      <mat-card>
+        <form class="example-form">
+          <mat-form-field class="example-full-width" style="width: 300px;">
+            <textarea matInput rows="5" cols="40" placeholder="Write feedback message to here"></textarea>
+          </mat-form-field><br>
+          <button mat-raised-button color="primary">Submit<mat-icon fontSet="fa" fontIcon="fa-paper-plane"></mat-icon></button>
+        </form>
+      </mat-card>
     </div>
   </div>
 </div>

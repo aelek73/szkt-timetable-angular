@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit {
   }
 
   changeAgencies(event) {
-    const agency_id = event.target.value;
+    const agency_id = event.value;
     this.getRoutes(agency_id);
   }
 
@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
   }
 
   changeRoute(event) {
-    const route_id = event.target.value;
+    const route_id = event.value;
     this.selectedRouteId = route_id;
     this.getTrips(route_id);
   }
@@ -76,7 +76,7 @@ export class HomeComponent implements OnInit {
   }
 
   changeTrip(event) {
-    const trip_id = event.target.value;
+    const trip_id = event.value;
     this.selectedDirectionId = this.getDirectionbyTripId(trip_id);
     this.getStops(trip_id);
   }
@@ -103,7 +103,7 @@ export class HomeComponent implements OnInit {
   }
 
   changeStop(event) {
-    const stop = event.target.value;
+    const stop = event.value;
     console.log('selectedroute:', this.selectedRouteId);
     this.getTimes(this.selectedRouteId, this.selectedDirectionId, stop);
   }
