@@ -17,6 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { MatCardModule } from '@angular/material/card';
     HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     BrowserAnimationsModule,
-    FormsModule, MatSelectModule, MatListModule, MatButtonModule, MatInputModule, MatCardModule
+    FormsModule, MatSelectModule, MatListModule, MatButtonModule, MatInputModule, MatCardModule, MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
