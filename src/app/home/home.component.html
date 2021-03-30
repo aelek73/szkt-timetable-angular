@@ -58,16 +58,19 @@
         <a mat-list-item *ngFor="let time of times"> {{time.arrival_time}} </a>
      </mat-nav-list>
     </div>
+
     <div class="col-sm-12 col-md-6 col-lg-3 mt-4 ">
-      <h4>Feedback</h4>
-      <mat-card>
-        <form class="example-form">
-          <mat-form-field class="example-full-width" style="width: 300px;">
-            <textarea matInput rows="5" cols="40" placeholder="Write feedback message to here"></textarea>
-          </mat-form-field><br>
-          <button mat-raised-button color="primary">Submit<mat-icon fontSet="fa" fontIcon="fa-paper-plane"></mat-icon></button>
-        </form>
-      </mat-card>
+      <div *ngIf="feedbackShow">
+        <h4>Feedback</h4>
+        <mat-card>
+          <form class="example-form">
+            <mat-form-field class="example-full-width" style="width: 300px;">
+              <textarea matInput rows="5" cols="40" placeholder="Write feedback message to here"></textarea>
+            </mat-form-field><br>
+            <button mat-raised-button color="primary">Submit<mat-icon fontSet="fa" fontIcon="fa-paper-plane"></mat-icon></button>
+          </form>
+        </mat-card>
+      </div>
     </div>
   </div>
 </div>

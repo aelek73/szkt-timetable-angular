@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
   public selectedStopName = '';
   public selectedRouteId: '';
   public onlineOffline: boolean = navigator.onLine;
+  public feedbackShow: boolean = false;
 
   constructor(private GTFS: GTFSAPIService) {}
 
@@ -117,6 +118,7 @@ export class HomeComponent implements OnInit {
       this.times = JSON.parse(localStorage.getItem('times'));
     }
     console.log('Times: ', this.times);
+    this.feedbackShow = true;
     if (direction_id !== '0' && direction_id !== '1') {
       window.alert('This query successfully failed or maybe show wrong data');
     }
