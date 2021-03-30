@@ -51,9 +51,13 @@
     </div>
     <div class="col-sm-12 col-md-6 col-lg-3 mt-4 ">
       <h4>Times</h4>
-      <div>
+      <!--div>
         <a href="#" *ngFor="let time of times" class="list-group-item">{{time.arrival_time}}</a>
-      </div>
+      </div-->
+      <mat-nav-list>
+        <a mat-list-item *ngFor="let time of times"> {{time.arrival_time}} </a>
+     </mat-nav-list>
+
     </div>
   </div>
 </div>
